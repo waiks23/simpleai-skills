@@ -1,9 +1,9 @@
 ---
 name: fincept-financial-engine
-description: Use FinceptTerminal analytics scripts as a local institutional financial intelligence engine
-version: 1.1.0
+description: Use FinceptTerminal through Odysseus' native fincept tool or fincept_engine.py to fetch real financial JSON
+version: 1.2.0
 category: finance
-tags: [finance, markets, valuation, analytics, hedge-fund, json]
+tags: [finance, markets, valuation, analytics, hedge-fund, json, fincept]
 ---
 
 ## When to Use
@@ -17,70 +17,62 @@ Use for:
 - investment memos
 - hedge-fund style analysis
 
+## Core Rule
+
+This skill must attempt Fincept execution first.
+
+The skill fails if it uses:
+- local notes
+- markdown files
+- cached fake data
+- simulated prices
+- invented quotes
+
+Do not use recovery unless Fincept execution actually fails.
+
 ## Procedure
 
-1. Use real data only.
+1. Call the native Odysseus `fincept` tool if available.
 
-Never invent:
-- prices
-- OHLCV
-- ratios
-- earnings
-- news
+Tool input example:
 
-2. Call Fincept through the wrapper.
+script_name: portfolioManagement/fetch_quotes
 
-Commands:
+args:
+{"symbols":["AAPL","MSFT","NVDA"]}
+
+2. If the native tool is unavailable, call the wrapper directly:
 
 cd ~/FinceptTerminal
 
-List available analytics:
-
-python3 fincept_engine.py list
-
-Run analytics:
-
-python3 fincept_engine.py run SCRIPT_NAME --args '{"key":"value"}'
-
-3. Prefer verified low-dependency tools first:
-
-- portfolioManagement/fetch_quotes
-- portfolioManagement/fetch_historical
-
-4. Parse returned JSON.
-
-5. Combine Fincept output with:
-
-- OpenBB
-- Deep Research
-- institutional-research-loop
-- SEC/company filings
-- earnings transcripts
-
-6. Analysis format:
-
-Always include:
-- source used
-- raw data summary
-- thesis
-- risks
-- uncertainty
-- next information needed
-
-7. Failure rules:
-
-If data fails:
-- show exact error
-- try another available source
-- never replace missing data with guesses
-
-## Examples
-
-Quote request:
-
 python3 fincept_engine.py run portfolioManagement/fetch_quotes --args '{"symbols":["AAPL","MSFT","NVDA"]}'
 
-Historical request:
+3. For historical data:
 
 python3 fincept_engine.py run portfolioManagement/fetch_historical --args '{"symbols":["AAPL"],"period":"5d","interval":"1d"}'
 
+4. Parse returned JSON.
+
+5. Report:
+- exact tool/command used
+- returned data
+- price
+- previous close
+- largest move if comparing symbols
+- missing fields
+
+6. If Fincept fails:
+- show exact error
+- then try OpenBB or Deep Research
+- do not invent financial facts
+
+## Success Condition
+
+The skill succeeds only if:
+- the native fincept tool was called successfully
+or
+- fincept_engine.py was executed successfully
+or
+- a real Fincept error was captured and reported
+
+Local note recovery is not a valid success path for this skill.
