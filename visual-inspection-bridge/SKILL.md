@@ -31,7 +31,11 @@ Do not use for:
 
 3. Execute:
 
-python3 ~/kokoro/vision_analyze.py IMAGE_PATH
+python3 scripts/vision_analyze.py IMAGE_PATH
+
+The command execution is mandatory.
+Finding an image file is not completion.
+The skill succeeds only after LLaVA returns a visual description.
 
 4. Wait for the LLaVA output.
 
