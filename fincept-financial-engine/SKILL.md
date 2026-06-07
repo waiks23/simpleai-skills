@@ -1,7 +1,7 @@
 ---
 name: fincept-financial-engine
-description: Use FinceptTerminal analytics scripts as a local financial intelligence engine
-version: 1.0.0
+description: Use FinceptTerminal analytics scripts as a local institutional financial intelligence engine
+version: 1.1.0
 category: finance
 tags: [finance, markets, valuation, analytics, hedge-fund, json]
 ---
@@ -12,6 +12,7 @@ Use for:
 - market quotes
 - historical prices
 - portfolio analytics
+- company analysis
 - financial research
 - investment memos
 - hedge-fund style analysis
@@ -27,36 +28,59 @@ Never invent:
 - earnings
 - news
 
-2. Call Fincept through the wrapper:
+2. Call Fincept through the wrapper.
+
+Commands:
 
 cd ~/FinceptTerminal
 
+List available analytics:
+
 python3 fincept_engine.py list
+
+Run analytics:
 
 python3 fincept_engine.py run SCRIPT_NAME --args '{"key":"value"}'
 
-3. Prefer low-dependency scripts first:
+3. Prefer verified low-dependency tools first:
+
 - portfolioManagement/fetch_quotes
 - portfolioManagement/fetch_historical
 
 4. Parse returned JSON.
 
-5. Combine Fincept data with:
+5. Combine Fincept output with:
+
 - OpenBB
 - Deep Research
 - institutional-research-loop
+- SEC/company filings
+- earnings transcripts
 
-6. If data fails:
-- report the exact error
-- do not simulate financial facts
-- suggest next source
+6. Analysis format:
 
-## Example Commands
+Always include:
+- source used
+- raw data summary
+- thesis
+- risks
+- uncertainty
+- next information needed
 
-Get quotes:
+7. Failure rules:
+
+If data fails:
+- show exact error
+- try another available source
+- never replace missing data with guesses
+
+## Examples
+
+Quote request:
 
 python3 fincept_engine.py run portfolioManagement/fetch_quotes --args '{"symbols":["AAPL","MSFT","NVDA"]}'
 
-Get historical data:
+Historical request:
 
 python3 fincept_engine.py run portfolioManagement/fetch_historical --args '{"symbols":["AAPL"],"period":"5d","interval":"1d"}'
+
