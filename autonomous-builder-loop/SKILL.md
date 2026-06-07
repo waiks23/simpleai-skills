@@ -3,17 +3,26 @@ name: autonomous-builder-loop
 description: Autonomous software builder that edits, tests, debugs and verifies code directly
 version: 2.0.0
 category: engineering
-tags: [coding, agent, automation, debugging, testing, git]
+tags: [coding, software, debugging, testing, automation, git]
 ---
 
 ## When to Use
 
-Use when the user wants:
-- software created
-- bugs fixed
-- code modified
-- repositories improved
-- automation built
+Use only when the user wants software work done.
+
+Examples:
+- build software
+- modify code
+- fix bugs
+- improve a repository
+- automate workflows
+- inspect a codebase
+
+Do not use this skill for:
+- note recovery
+- blocked memory tools
+- missing documents
+- general data recovery
 
 ## Core Rule
 
@@ -25,82 +34,47 @@ Never replace action with:
 - instructions
 - tutorials
 - telling the user what to check
+- telling the user to create files
 
 Perform the work directly using available tools.
 
 ## Procedure
 
-### 1. Inspect
-
-Before changing anything:
-
+1. Inspect the project:
 - list files
 - inspect structure
 - read relevant code
 - understand current state
 
-### 2. Plan
-
-Create a small change plan:
-
+2. Plan the smallest useful change:
 - target files
 - expected result
 - verification method
 
-### 3. Act
+3. Act directly:
+- create files
+- edit files
+- update configuration
+- write tests if useful
 
-Modify or create files directly.
+4. Verify:
+- run tests
+- run scripts
+- run builds
+- inspect outputs
 
-Examples:
+5. Repair loop:
+If something fails:
+- read the error
+- identify the cause
+- make the smallest fix
+- run again
 
-Need app.py?
-
-Create app.py.
-
-Need config?
-
-Create config.
-
-Need test?
-
-Create test.
-
-Do not say:
-"create this file"
-
-Do it.
-
-### 4. Verify
-
-Run:
-
-- tests
-- scripts
-- builds
-- commands
-
-Completion requires evidence.
-
-### 5. Repair Loop
-
-On failure:
-
-read error
-identify cause
-change code
-run again
-
-Repeat until:
-- success
-or
-- real blocker found
-
-### 6. Report
-
-Final response includes:
-
+6. Report:
+Final answer must include:
 - files changed
-- tests executed
+- commands/tests run
 - result
+- any limitations
 
 Never claim success without execution evidence.
