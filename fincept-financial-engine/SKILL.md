@@ -63,7 +63,7 @@ python3 fincept_engine.py run portfolioManagement/fetch_historical --args '{"sym
 
 6. If Fincept fails:
 - show exact error
-- then try OpenBB or Deep Research
+- then try OpenBB or Deep Research. Do not use local notes, cached files, or find-notes recovery for financial prices
 - do not invent financial facts
 
 ## Success Condition
